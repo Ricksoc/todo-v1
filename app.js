@@ -5,7 +5,15 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/index.html");
+
+  var today = new Date();
+  var currentDate = today.getDay();
+
+  if (currentDate === 6 || currentDate === 0) {
+    res.sendFile(__dirname + "/index.html");
+  } else {
+    res.sendFile(__dirname + "/index.html");
+  }
 });
 
 app.listen(3000, () => {
