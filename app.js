@@ -3,30 +3,25 @@
 const express = require("express");
 const app = express();
 
+let newItems = [];
+
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
-const days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Satuarday",
-];
-
 app.get("/", function (req, res) {
   var today = new Date();
-  var currentDate = today.getDay();
-  var day = days[currentDate];
 
-  if (currentDate > 6 || currentDate < 0) {
-    console.log("Error: currentDay is equal to: " + currentDate);
-  } else {
-    res.render("list", { kindOfDay: day });
-  }
+  var options = { weekday: "long", day: "numeric", month: "long" };
 
+  var day = today.toLocaleDateString("en-US", options);
+
+  res.render("list", { kindOfDay: day, newItems: newItems });
+});
+
+app.post("/", function (req, res) {
+  newItems.push(req.body.newItem);
+
+  res.redirect("/");
 });
 
 app.listen(3000, () => {
