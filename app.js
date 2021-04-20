@@ -3,10 +3,11 @@
 const express = require("express");
 const app = express();
 
-let newItems = ["Buy Food", "Cook Food", "Eat Food"];
-
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 app.set("view engine", "ejs");
+
+let newItems = ["Buy Food", "Cook Food", "Eat Food"];
 
 app.get("/", function (req, res) {
   var today = new Date();
