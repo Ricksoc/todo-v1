@@ -3,7 +3,7 @@
 const express = require("express");
 const app = express();
 
-let newItems = [];
+let newItems = ["Buy Food", "Cook Food", "Eat Food"];
 
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
