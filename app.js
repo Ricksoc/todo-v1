@@ -2,27 +2,27 @@
 
 const express = require("express");
 const app = express();
+const date = require(__dirname + "/date.js");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-let newItems = ["Buy Food", "Cook Food", "Eat Food"];
-let workItems = [];
+const newItems = ["Buy Food", "Cook Food", "Eat Food"];
+const workItems = [];
+
 
 app.get("/", function (req, res) {
-  var today = new Date();
 
-  var options = { weekday: "long", day: "numeric", month: "long" };
-
-  var day = today.toLocaleDateString("en-US", options);
+  const day = date.getDate();
 
   res.render("list", { listTitle: day, newItems: newItems });
 });
 
 app.post("/", function (req, res) {
+  console.log(req.body.list);
   let item = req.body.newItem;
-  if (req.body.list === "Work") {
+  if (req.body.list === "Work List") {
     workItems.push(item);
     res.redirect("/work");
   } else {
